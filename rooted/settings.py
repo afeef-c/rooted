@@ -12,7 +12,11 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 import os
 from pathlib import Path
+<<<<<<< HEAD
 #from decouple import config
+=======
+# from decouple import config
+>>>>>>> b80009ac1ea08b1080961bdb4486bbae423e6eb9
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -23,6 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+<<<<<<< HEAD
 #SECRET_KEY = os.environ.get('SECRET_KEY')
 
 SECRET_KEY='django-insecure-6s+idmt@&+*i3d-)g+g+ls6a$g+sf%gxv%td#yo_n=cn9*zkjx'
@@ -31,7 +36,15 @@ DEBUG=True
 
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = os.environ.get('DEBUG', default=True)
+=======
+# SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = 'django-insecure-6s+idmt@&+*i3d-)g+g+ls6a$g+sf%gxv%td#yo_n=cn9*zkjx'
 
+# SECURITY WARNING: don't run with debug turned on in production!
+# DEBUG = config('DEBUG', default=True, cast=bool)
+>>>>>>> b80009ac1ea08b1080961bdb4486bbae423e6eb9
+
+DEBUG = True
 ALLOWED_HOSTS = []
 
 
@@ -191,6 +204,7 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 # SMTP Email settings
 
+<<<<<<< HEAD
 #EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND')
 #EMAIL_HOST = os.environ.get('EMAIL_HOST')
 #EMAIL_PORT = os.environ.get('EMAIL_PORT')
@@ -198,6 +212,24 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 #EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 #EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 #EMAIL_USE_SSL = config('EMAIL_USE_SSL', cast=bool)
+=======
+# EMAIL_BACKEND = config('EMAIL_BACKEND')
+# EMAIL_HOST = config('EMAIL_HOST')
+# EMAIL_PORT = config('EMAIL_PORT', cast=int)
+# EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
+# EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+# EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+# EMAIL_USE_SSL = config('EMAIL_USE_SSL', cast=bool)
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'afeefc123@gmail.com'
+EMAIL_HOST_PASSWORD = 'kgaa gfwy rfzj nhtx'
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+>>>>>>> b80009ac1ea08b1080961bdb4486bbae423e6eb9
 
 EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST='smtp.gmail.com'
@@ -211,11 +243,20 @@ EMAIL_USE_SSL=False
 #PAYPAL_RECEIVER_EMAIL = 'rootedstores@gmail.com'
 #PAYPAL_TEST = True
 
+<<<<<<< HEAD
 #RAZOR_KEY_ID = config('RAZOR_KEY_ID')
 #RAZOR_KEY_SECRET = config('RAZOR_KEY_SECRET')
 
 RAZOR_KEY_ID='rzp_test_VlrhibhaWWTpKb'
 RAZOR_KEY_SECRET='bSbPSE4eWm0lZdf6PgsijdEW'
+=======
+# RAZOR_KEY_ID = config('RAZOR_KEY_ID')
+# RAZOR_KEY_SECRET = config('RAZOR_KEY_SECRET')
+
+RAZOR_KEY_ID = 'rzp_test_VlrhibhaWWTpKb'
+RAZOR_KEY_SECRET = 'bSbPSE4eWm0lZdf6PgsijdEW'
+
+>>>>>>> b80009ac1ea08b1080961bdb4486bbae423e6eb9
 
 # To Enable Popus in Django or else it will block the payment popup
 SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin-allow-popups"
