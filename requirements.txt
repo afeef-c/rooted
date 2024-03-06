@@ -46,6 +46,7 @@ python-dateutil==2.9.0.post0
 python-decouple==3.8
 python-ipware==2.0.2
 pytz==2024.1
+pywin32==306
 PyYAML==6.0.1
 qrcode==7.4.2
 razorpay==1.4.1
