@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 import os
 from pathlib import Path
-from decouple import config
+# from decouple import config
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -23,11 +23,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+# SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = 'django-insecure-6s+idmt@&+*i3d-)g+g+ls6a$g+sf%gxv%td#yo_n=cn9*zkjx'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=True, cast=bool)
+# DEBUG = config('DEBUG', default=True, cast=bool)
 
+DEBUG = True
 ALLOWED_HOSTS = []
 
 
@@ -183,30 +185,38 @@ MESSAGE_TAGS = {
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 
-#ACCOUNT_SID='AC0722d83bf85ed2310a99c6a179b132b1'
-#AUTH_TOKEN='ae919a604c2e32f27f139e368656e671'
-#COUNTRY_CODE='+91'
-#TWILIO_WHATSAPP_NUMBER='whatsapp:+14155238886.'
-#TWILIO_PHONE_NUMBER='+15182914114'
 
 
 # SMTP Email settings
 
-EMAIL_BACKEND = config('EMAIL_BACKEND')
-EMAIL_HOST = config('EMAIL_HOST')
-EMAIL_PORT = config('EMAIL_PORT', cast=int)
-EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-EMAIL_USE_SSL = config('EMAIL_USE_SSL', cast=bool)
+# EMAIL_BACKEND = config('EMAIL_BACKEND')
+# EMAIL_HOST = config('EMAIL_HOST')
+# EMAIL_PORT = config('EMAIL_PORT', cast=int)
+# EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
+# EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+# EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+# EMAIL_USE_SSL = config('EMAIL_USE_SSL', cast=bool)
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'afeefc123@gmail.com'
+EMAIL_HOST_PASSWORD = 'kgaa gfwy rfzj nhtx'
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
 
 
 
 #PAYPAL_RECEIVER_EMAIL = 'rootedstores@gmail.com'
 #PAYPAL_TEST = True
 
-RAZOR_KEY_ID = config('RAZOR_KEY_ID')
-RAZOR_KEY_SECRET = config('RAZOR_KEY_SECRET')
+# RAZOR_KEY_ID = config('RAZOR_KEY_ID')
+# RAZOR_KEY_SECRET = config('RAZOR_KEY_SECRET')
+
+RAZOR_KEY_ID = 'rzp_test_VlrhibhaWWTpKb'
+RAZOR_KEY_SECRET = 'bSbPSE4eWm0lZdf6PgsijdEW'
+
 
 # To Enable Popus in Django or else it will block the payment popup
 SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin-allow-popups"
