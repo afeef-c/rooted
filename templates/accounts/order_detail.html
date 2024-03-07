@@ -166,7 +166,9 @@
                         <p>Sub Total <span>₹ {{subtotal|floatformat:"1"}} </span></p>
                         <p>Shipping Fee <span>₹ {{shipping_fee}} </span></p>
                         <p>GST <span>₹ {{tax|floatformat:"1"}} </span></p>
-
+                        {% if order.coupon %}
+                        <p>Referal/Coupon Discounts <span>₹ {{order.coupon.discount_amount|floatformat:"2"}} </span></p>
+                        {% endif %}
                         <h4>Grand Total <span>₹ {{grand_total|floatformat:"2"}} </span></h4>
 
                     </div>

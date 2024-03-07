@@ -1,6 +1,6 @@
 
 from django.urls import path
-from .views import store,product_detail,search,filter_products,sort
+from .views import store,product_detail,search,filter_products,sort,aboutme
 
 
 urlpatterns = [

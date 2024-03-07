@@ -1,6 +1,8 @@
 
 from django.contrib import admin
 from django.urls import include, path
+
+import store
 from . import views
 
 from django.conf import settings
@@ -9,7 +11,7 @@ from django.conf.urls.static import static
 urlpatterns = [
 
     # honey pot adminpannet not real
-    path('admin/', include('admin_honeypot.urls')),
+    #path('admin/', include('admin_honeypot.urls')),
 
     path('rooted_dj_admin/', admin.site.urls),
     path('rooted_admin/', include('customadmin.urls')),
@@ -18,6 +20,8 @@ urlpatterns = [
     path('store/', include('store.urls')),
     path('cart/', include('cart.urls')),
     path('accounts/', include('accounts.urls')),
+    path('aboutme/', store.views.aboutme, name='aboutme'),
+
     
     #orders
     path('orders/', include('orders.urls')),

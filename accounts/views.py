@@ -467,12 +467,21 @@ def order_detail(request, order_id):
         item.item_total = item.product_price*item.quantity
         subtotal += item.item_total
     
+
+    if order.coupon is not None:
+        discount_amount = float(order.coupon.discount_amount)
+    else:
+        discount_amount=0
+    
     tax = (2*subtotal)/100
     if subtotal>= 1000:
         shipping_fee=0
     else:
         shipping_fee=100
-    grand_total = subtotal+tax+ shipping_fee
+
+    grand_total = subtotal+tax+ shipping_fee - discount_amount
+
+
 
     context = {
         'order_detail':order_detail,
@@ -824,7 +833,14 @@ def generate_invoice_xls(request,order_id):
         shipping_fee=0
     else:
         shipping_fee=100
-    grand_total = subtotal+tax+ shipping_fee
+
+    if order.coupon is not None:
+        discount_amount = float(order.coupon.discount_amount)
+    else:
+        discount_amount=0
+    
+    grand_total = subtotal+tax+ shipping_fee - discount_amount
+
 
     context = {
         'order_detail':order_detail,

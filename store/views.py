@@ -22,14 +22,14 @@ def store(request, category_slug=None):
         categories = get_object_or_404(Category,slug=category_slug)
         products = Product.objects.filter(category=categories, is_available=True).order_by('price')
 
-        paginator = Paginator(products,5) 
+        paginator = Paginator(products,15) 
         page = request.GET.get('page')
         paged_products = paginator.get_page(page)
         product_count = products.count()
     
     else:
         products = Product.objects.all().order_by('price')
-        paginator = Paginator(products,5) 
+        paginator = Paginator(products,15) 
         page = request.GET.get('page')
         paged_products = paginator.get_page(page)
         product_count = products.count()
@@ -155,3 +155,10 @@ def filter_products(request):
 
 
 
+
+
+
+
+def aboutme(request):
+
+    return render(request, 'aboutme.html')

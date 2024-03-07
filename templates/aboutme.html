@@ -1,0 +1,114 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+
+
+{% block content %}
+
+
+    
+    <!--=============================================
+	=            lookbook home page content         =
+	=============================================-->
+
+	<div class="homepage-content--lookbook mb-50">
+		<!--=======  single lookbook section  =======-->
+
+		<div class="single-lookbook-section lookbook-bg-1">
+			<div class="container">
+				<div class="row">
+					<div class="col-xl-6 col-lg-7 ">
+						<!--=======  lookbook content  =======-->
+						<div class="lookbook-content-wrapper d-flex flex-column justify-content-center">
+							<div class="lookbook-content text-center">
+								<p class="tag">Thank you for visit the page. </p>
+								<h2 class="lookbook-title">I'm Muhammed Afeef</h2>
+								<a href="https://www.linkedin.com/in/afeef-4a5438199" class="lezada-button lezada-button--medium lookbook-btn" target="_blank">Visit LinkedIn</a>
+
+							</div>
+						</div>
+
+						<!--=======  End of lookbook content  =======-->
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--=======  End of single lookbook section  =======-->
+		<!--=======  single lookbook section  =======-->
+
+		<div class="single-lookbook-section lookbook-bg-2">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-7 offset-lg-5 col-md-8 offset-md-4">
+						<!--=======  lookbook content  =======-->
+						<div class="lookbook-content-wrapper d-flex flex-column justify-content-center">
+							<div class="lookbook-content lookbook-content--dark text-center">
+								<p class="tag">Projects..</p>
+								<h2 class="lookbook-title">Visit Git</h2>
+								<a href="https://github.com/afeef-c" class="lezada-button lezada-button--medium lookbook-btn">github</a>
+							</div>
+						</div>
+
+						<!--=======  End of lookbook content  =======-->
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--=======  End of single lookbook section  =======-->
+
+		<!--=======  single lookbook section  =======-->
+
+		<div class="single-lookbook-section lookbook-bg-3">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-10 offset-lg-1">
+						<!--=======  lookbook content  =======-->
+						<div class="lookbook-content-wrapper d-flex flex-column justify-content-center">
+							<div class="lookbook-content text-center">
+								<p class="tag">Stay tune for updates</p>
+								<h2 class="lookbook-title">Women's new arrivals</h2>
+								<a href="{% url 'home' %}" class="lezada-button lezada-button--medium lookbook-btn">shop now</a>
+							</div>
+						</div>
+
+						<!--=======  End of lookbook content  =======-->
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--=======  End of single lookbook section  =======-->
+		<!--=======  single lookbook section  =======-->
+
+		<div class="single-lookbook-section lookbook-bg-4">
+			<div class="container">
+				<div class="row">
+					<div class="col-xl-6 col-lg-7 col-md-8">
+						<!--=======  lookbook content  =======-->
+						<div class="lookbook-content-wrapper lookbook-content--dark d-flex flex-column justify-content-center">
+							<div class="lookbook-content text-center">
+								<p class="tag">#plants</p>
+								<h2 class="lookbook-title">Find your style</h2>
+								<a href="{% url 'store' %}" class="lezada-button lezada-button--medium lookbook-btn">shop now</a>
+							</div>
+						</div>
+
+						<!--=======  End of lookbook content  =======-->
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--=======  End of single lookbook section  =======-->
+	</div>
+
+	<!--=====  End of lookbook home page content  ======-->
+
+	<!--=============================================
+	=            footer top         =
+	=============================================-->
+
+
+{% endblock content %}
