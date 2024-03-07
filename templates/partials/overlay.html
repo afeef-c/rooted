@@ -237,15 +237,15 @@
 
 					<!--=======  End of free shipping text  =======-->
 				</div>
+				<div class="cart-calculation-button text-center m-2">
+					<button  class="lezada-button lezada-button--medium"><a href="{% url 'placeorder' %}">place order</a></button>
+				</div>
 				{% endif %}
 			</div>
+			
 			{% if orders_exist %}
 			<div class="cart-calculation-button text-center m-5">
 				<p class="text-danger">Please Check/complete your unfinished orders.</p>
-			</div>
-			{% else %}
-			<div class="cart-calculation-button text-center m-2">
-				<button  class="lezada-button lezada-button--medium"><a href="{% url 'placeorder' %}">place order</a></button>
 			</div>
 			{% endif %}
 			<!--=======  End of offcanvas cart content container   =======-->
