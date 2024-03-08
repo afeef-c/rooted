@@ -148,7 +148,7 @@ def place_order(request, total=0, quantity=0):
             try:
                 address = AddressBook.objects.get(id=selected_address)
             except AddressBook.DoesNotExist:
-                return redirect('some_error_url')
+                return redirect('cart')
             
             order = Order.objects.create(
                     user=current_user ,
@@ -233,7 +233,7 @@ def place_order(request, total=0, quantity=0):
         if 'order_id' in request.session:
             del request.session['order_id']
         if 'order_note' in request.session:
-                    del request.session['order_note']
+                del request.session['order_note']
 
         context = {
             'order_products':order_products,

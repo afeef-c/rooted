@@ -205,17 +205,17 @@
 												{% for item in cart_items %}
 												<ul>
 													
-													<li>{{item.product.product_name}}  X {% if item.quantity < 10 %}0{{ item.quantity }}{% else %}{{ item.quantity }}{% endif %} <span>₹ {{item.item_total}} </span></li>
+													<li>{{item.product.product_name}}  X {% if item.quantity < 10 %}0{{ item.quantity }}{% else %}{{ item.quantity }}{% endif %} <span>₹ {{item.item_total|floatformat:'2'}} </span></li>
 													
 												</ul>
 												{% endfor %}
-												<p>Sub Total <span>₹ {{total}} </span></p>
-												<p>Shipping Fee <span>₹ {{shipping_fee}} </span></p>
-												<p>GST <span>₹ {{tax}} </span></p>
+												<p>Sub Total <span>₹ {{total|floatformat:'2'}} </span></p>
+												<p>Shipping Fee <span>₹ {{shipping_fee|floatformat:'2'}} </span></p>
+												<p>GST <span>₹ {{tax|floatformat:'2'}} </span></p>
 												{% if 'coupon' in request.session or discount_amount > 0 %}
-												<p>Referal/Coupon Discounts <span>₹ {{discount_amount}} </span></p>
+												<p>Referal/Coupon Discounts <span>₹ {{discount_amount|floatformat:'2'}} </span></p>
 												{% endif %}
-												<h4>Grand Total <span>₹ {{grand_total}} </span></h4>
+												<h4>Grand Total <span>₹ {{grand_total|floatformat:'2'}} </span></h4>
 
 											</div>
 

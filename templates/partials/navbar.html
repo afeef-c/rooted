@@ -59,92 +59,98 @@
 						<!--=======  header right icons  =======-->
 
 						<div class="header-right-icons d-flex justify-content-end align-items-center h-100">
-							<!--=======  single-icon  =======-->
+							<!--=======  single-icon-search  =======-->
+							
+							<!--=======  End of single-icon-coupons  =======-->
+							{% if 'cart' in request.path %}
+							
+							<div class="single-icon coupons  ">
+								
+								<div class="header-bottom-navigation">
+									<div class="site-main-nav d-none d-lg-block">
+										<nav class="site-nav center-menu">
+											<ul>
+												<li class="menu-item-has-children "><a href="javascript:void(0)" id="offcanvas-cart-icon"><i class="far fa-bell"></i><span class="count" id="cart-list">!</span></a>
+													<ul class="sub-menu single-column-menu single-column-has-children">
+														<li><a><i class="fa-solid fa-hand-holding-inr"></i>Referral Coupons</a>
+															<ul class="multilevel-submenu">
+																<li><a>Copy and use it</a></li>
+																
+															</ul>
+														</li>
+														
+														
+														{% if is_authenticated %}
+														<li><a ></i> Available coupons</a></li>
+														{% for Coupon in coupons %}
+														<li><a>{{Coupon.code}}</a></li>
+														{% endfor %}
+														{% else %}
+														<li><a>Pleas login/register</a></li>
+														<li><a>Only for registered users</a></li>
+														{% endif %}
+													</ul>
+												</li>
+											</ul>
+										</nav>
+									</div>
+								</div>
+							</div>
+								
+							
+							{% endif %}
+							<!--=======  single-icon-coupons  =======-->
 
-							<!--<div class="single-icon search">
-								<a href="javascript:void(0)" id="search-icon">
-									<i class="ion-ios-search-strong"></i> 
-								</a> 
-							</div>-->
+
+							{% if 'cart' not in request.path %}
 							<div class="search-widget">
 								<form action="{% url 'search' %}" method="GET">
 									<input type="search" name="keyword" placeholder="Search ...">
 									<button type="submit"><i class="ion-android-search"></i></button>
 								</form>
 							</div>
+							{% endif %}
 
-							<!--=======  End of single-icon  =======-->
-							<!--=======  single-icon  =======-->
+							<!--=======  End of single-icon-search  =======-->
+							
+							<!--=======  single-icon-user  =======-->
 
 							<div class="single-icon user-login">
-								
+								<div class="header-bottom-navigation">
+									<div class="site-main-nav d-none d-lg-block">
+										<nav class="site-nav center-menu">
+											<ul>
+												<li class="menu-item-has-children "><a href="javascript:void(0)"><i class="ion-android-person"></i></a>
+													<ul class="sub-menu single-column-menu single-column-has-children">
+														{% if user.is_authenticated %}
+														<li><a href="{% url 'dashboard' %}"><i class="far fa-user"></i>{{user.username | capfirst }}</a>
+															<ul class="multilevel-submenu">
+																<li><a href="{% url 'dashboard' %}">Dsahboard</a></li>
+																
+															</ul>
+														</li>
+														<li><a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+														{%else%}
+														<li><a href="blog-standard-right-sidebar.html">Welcome</a>
+															<ul class="multilevel-submenu">
+																<li class="m-1">Unlock Exclusive Deals & </li>
+																<li class="m-1"> Seamless Order Management!</li>	 
+																<li class="m-1">Join Now or Log In </li>
+																<li class="m-1"> Elevate Your Shopping Experience!</li>
+																
+															</ul>
+														</li>
+														<li><a href="{% url 'login' %}"><i class="fas fa-bolt"></i>Login/Register</a></li>
 
-								<div class="btn-group mb-2">
-									<a class="" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-										<i class="ion-android-person"></i>
-									</a>
-									<div class="dropdown-menu" >
-										{% if user.is_authenticated %}
-										
-										<a href="{% url 'dashboard' %}" class="dropdown-item has-icon">
-										<i class="far fa-user"></i>  {{user.username | capfirst }}
-										</a>
-										<div class="dropdown-divider"></div>
-										
-										<a href="{% url 'logout' %}" class="dropdown-item has-icon text-danger">
-											<i class="fas fa-sign-out-alt"></i> Logout
-										</a>
-										
-										{%else%}
-										<div class="dropdown-title">Welcome</div>
-										<div class="dropdown-title">To access account and manage order</div>
-									
-										<div class="dropdown-divider"></div>
-										<a href="{% url 'login' %}" class="dropdown-item has-icon">
-										<i class="fas fa-bolt"></i>Login/Register
-										</a>
-										{% endif %}
+														{% endif %}
+
+													</ul>
+												</li>
+											</ul>
+										</nav>
 									</div>
 								</div>
 							</div>
-
-							<!--=======  End of single-icon  =======-->
-							{% if 'cart' in request.path %}
-							
-							<div class="header-right-icons  ">
-								<div class="single-icon">
-									<li class="dropdown dropdown-list-toggle single-icon"><a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg beep" aria-expanded="false"><i class="far fa-bell"></i></a>
-										<div class="dropdown-menu dropdown-list dropdown-menu-right ">
-										<div class="dropdown-header">Referral Coupons
-											
-										</div>
-										<div class="dropdown-list-content dropdown-list-icons" tabindex="2" style="overflow: hidden; outline: none;">
-											
-										
-											<div class="dropdown-item-icon bg-info text-white">
-												<i class="fas fa-bell"></i>Available coupons
-											</div>
-											<div class=" align-center">
-											<ul>
-												{% for Coupon in coupons %}
-												<li class="dropdown-item"> {{Coupon.code}} </li>
-												{% endfor %}
-											</ul>
-											</div>
-											
-
-											
-										</div>
-										
-										<div id="ascrail2001" class="nicescroll-rails nicescroll-rails-vr" style="width: 9px; z-index: 1000; cursor: default; position: static; top: 58px; left: 341px; height: 350px; opacity: 0.3; display: none;"><div class="nicescroll-cursors" style="position: relative; top: 44px; float: right; width: 7px; height: 306px; background-color: rgb(241, 17, 17); border: 1px solid rgb(238, 10, 10); background-clip: padding-box; border-radius: 5px;"></div></div><div id="ascrail2001-hr" class="nicescroll-rails nicescroll-rails-hr" style="height: 9px; z-index: 1000; top: 399px; left: 0px; position: absolute; cursor: default; display: none; width: 341px; opacity: 0.3;"><div class="nicescroll-cursors" style="position: absolute; top: 0px; height: 7px; width: 350px; background-color: rgb(240, 11, 11); border: 1px solid rgb(255, 255, 255); background-clip: padding-box; border-radius: 5px; left: 0px;"></div></div></div>
-									</li>
-								</div>
-								
-							</div>
-								
-							
-							{% endif %}
-							<!--=======  single-icon  =======-->
 
 							<div class="single-icon wishlist">
 								<a href="javascript:void(0)" id="offcanvas-wishlist-icon">
