@@ -141,18 +141,19 @@ def remove_cart_item(request,product_id, cart_item_id):
     product.save()
     return redirect('cart')
 
-
 def cart(request, total=0, quantity=0, cart_item=None,pending_total=0):
     grand_total = 0
     tax = 0
     variations = {}
     shipping_fee = 0
+    discount_amount=0
+    
     if cart_item is None:
         cart_items = []
-
     try:
         if request.user.is_authenticated:
             cart_items = CartItem.objects.filter(user=request.user, is_active=True)
+            
         else:
             cart = Cart.objects.get(cart_id=_cart_id(request))
             cart_items = CartItem.objects.filter(cart=cart, is_active=True)
@@ -181,8 +182,9 @@ def cart(request, total=0, quantity=0, cart_item=None,pending_total=0):
         grand_total = float(total + tax +shipping_fee) - float(discount_amount)
 
 
-
         orders_exist = Order.objects.filter(user=request.user, status='Pending').exists()
+
+        
         if orders_exist:
             pending_orders = Order.objects.filter(user=request.user, status='Pending')
             for order in pending_orders:
@@ -196,14 +198,11 @@ def cart(request, total=0, quantity=0, cart_item=None,pending_total=0):
         else:
             pending_orders=None
             payment_method=None
-    except ObjectDoesNotExist:
-        cart_items =[]
+            order_products=None
 
-    coupons = Coupon.objects.all()
+        coupons = Coupon.objects.all()
 
-    
-
-    context = {
+        context = {
         'total': total,
         'quantity': quantity,
         'shipping_fee':shipping_fee,
@@ -211,19 +210,38 @@ def cart(request, total=0, quantity=0, cart_item=None,pending_total=0):
         'grand_total': grand_total,
         'tax': tax,
         'couponform':CouponForm(),
-        'discount_amount':discount_amount,
-        'coupon':coupon,
         'orders_exist': orders_exist,
-        'pending_orders':pending_orders,
         'pending_total':pending_total,
+        'order_products':order_products,
+        'pending_orders':pending_orders,
         'payment_method':payment_method,
+        'coupon':coupon,
+        'discount_amount':discount_amount,
         'coupons':coupons 
-    }
-    if orders_exist:
-        context['order_products'] = order_products
+        }
+
+        return render(request, 'cart/cart.html', context)
+
+    except ObjectDoesNotExist:
+        cart_items =[]
+
+        coupons = Coupon.objects.all()
+
+    
+        context = {
+            'total': total,
+            'quantity': quantity,
+            'shipping_fee':shipping_fee,
+            'cart_items': cart_items,
+            'grand_total': grand_total,
+            'tax': tax,
+            'coupons':coupons 
+            }
+        return render(request, 'cart/cart.html', context)
+    
     
 
-    return render(request, 'cart/cart.html', context)
+    
 
 
 @login_required(login_url='login')
