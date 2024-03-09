@@ -39,7 +39,9 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-12">
-					<h4 class="checkout-title">Billing Address</h4>
+					<h4 class="h4 text-center">Billing Address</h4>
+					<p>**If your address book is available, you can select the address; if not, you must enter the information manually.</p>
+					
 					<div class="lezada-form">
 
 
@@ -48,7 +50,9 @@
 						{% csrf_token %}
 							<div class="row row-40">
 								
+								
 								<div class="col-lg-7 mb-20">
+									{% if user.AddressBook %}
 									<div class="scrollable-container" style=" height: 400px; overflow-x: auto;white-space: nowrap;">
 										<div class="container ">
 											<div class="row">
@@ -92,7 +96,8 @@
 											</div>
 										</div>
 									</div>
-									
+									{% endif %}
+																		
 
 
 									<!-- Billing Address -->
@@ -102,6 +107,7 @@
 										<div class="single-method">
 											<input type="radio" id="new_address" name="address_method" value="new_address" required>
 											<label for="new_address">SHIP TO DIFFERENT ADDRESS</label>
+											<p>To ship to a new address, complete the form below and select the appropriate option.</p>
 											<p data-method="new_address">For ship to new address !! and fill the form below </p>
 										</div>
 										

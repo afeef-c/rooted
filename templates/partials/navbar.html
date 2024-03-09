@@ -72,16 +72,18 @@
 											<ul>
 												<li class="menu-item-has-children "><a href="javascript:void(0)" id="offcanvas-cart-icon"><i class="far fa-bell"></i><span class="count" id="cart-list">!</span></a>
 													<ul class="sub-menu single-column-menu single-column-has-children">
-														<li><a><i class="fa-solid fa-hand-holding-inr"></i>Referral Coupons</a>
+														<li><a><i class="fa-solid fa-hand-holding-inr"></i><b>Referral Coupons</b></a>
 															<ul class="multilevel-submenu">
-																<li><a>Copy and use it</a></li>
-																
+																<li><a>Copy the coupon code</a></li>
+																<li><a>And try your luck</a></li>
+																<li><a>You can use one code in an order</a></li>
+																<li><a></a></li>
 															</ul>
 														</li>
 														
 														
-														{% if is_authenticated %}
-														<li><a ></i> Available coupons</a></li>
+														{% if request.user %}
+														<li><a ></i><b> Available coupon-codes </b></a></li>
 														{% for Coupon in coupons %}
 														<li><a>{{Coupon.code}}</a></li>
 														{% endfor %}

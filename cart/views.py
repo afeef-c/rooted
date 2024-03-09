@@ -153,65 +153,51 @@ def cart(request, total=0, quantity=0, cart_item=None,pending_total=0):
     try:
         if request.user.is_authenticated:
             cart_items = CartItem.objects.filter(user=request.user, is_active=True)
-
+        else:
             cart = Cart.objects.get(cart_id=_cart_id(request))
             cart_items = CartItem.objects.filter(cart=cart, is_active=True)
         
         
-            for cart_item in cart_items:
-                item_variations = Variation.objects.filter(product=cart_item.product)
-                variations[cart_item.id] = item_variations  # Store variations for each cart item
-                cart_item.item_total = cart_item.quantity * cart_item.product.get_offer_price()
-                quantity += cart_item.quantity
-                total += cart_item.item_total
-        
-            if 'coupon' in request.session:
-                coupon = request.session['coupon']
-                discount_amount = Decimal(coupon['discount_amount'])
-            else:
-                discount_amount=0
-                coupon = None
-
-        
-            if total>=1000:
-                shipping_fee = 0
-            else:
-                shipping_fee = 100
-            tax = (2 * total) / 100
-            grand_total = float(total + tax +shipping_fee) - float(discount_amount)
-
-
-
-            orders_exist = Order.objects.filter(user=request.user, status='Pending').exists()
-            if orders_exist:
-                pending_orders = Order.objects.filter(user=request.user, status='Pending')
-                for order in pending_orders:
-                    payment_method = order.payment.payment_method
-                    order_products = OrderProduct.objects.filter(order=order, ordered=False)
-                    for pending_item in order_products:
-                        pending_item.item_total = (float(pending_item.product_price) * pending_item.quantity)
-                        pending_total += pending_item.item_total
-                        quantity += pending_item.quantity
-
-            else:
-                pending_orders=None
-                payment_method=None
+        for cart_item in cart_items:
+            item_variations = Variation.objects.filter(product=cart_item.product)
+            variations[cart_item.id] = item_variations  # Store variations for each cart item
+            cart_item.item_total = cart_item.quantity * cart_item.product.get_offer_price()
+            quantity += cart_item.quantity
+            total += cart_item.item_total
+    
+        if 'coupon' in request.session:
+            coupon = request.session['coupon']
+            discount_amount = Decimal(coupon['discount_amount'])
         else:
-            cart_items =[]
+            discount_amount=0
             coupon = None
-            orders_exist = False
+
+        
+        if total>=1000:
+            shipping_fee = 0
+        else:
+            shipping_fee = 100
+        tax = (2 * total) / 100
+        grand_total = float(total + tax +shipping_fee) - float(discount_amount)
+
+
+
+        orders_exist = Order.objects.filter(user=request.user, status='Pending').exists()
+        if orders_exist:
+            pending_orders = Order.objects.filter(user=request.user, status='Pending')
+            for order in pending_orders:
+                payment_method = order.payment.payment_method
+                order_products = OrderProduct.objects.filter(order=order, ordered=False)
+                for pending_item in order_products:
+                    pending_item.item_total = (float(pending_item.product_price) * pending_item.quantity)
+                    pending_total += pending_item.item_total
+                    quantity += pending_item.quantity
+
+        else:
             pending_orders=None
             payment_method=None
-
-
     except ObjectDoesNotExist:
         cart_items =[]
-        coupon = None
-        orders_exist = False
-        pending_orders=None
-        payment_method=None
-
-    
 
     coupons = Coupon.objects.all()
 
@@ -225,6 +211,7 @@ def cart(request, total=0, quantity=0, cart_item=None,pending_total=0):
         'grand_total': grand_total,
         'tax': tax,
         'couponform':CouponForm(),
+        'discount_amount':discount_amount,
         'coupon':coupon,
         'orders_exist': orders_exist,
         'pending_orders':pending_orders,
@@ -234,8 +221,6 @@ def cart(request, total=0, quantity=0, cart_item=None,pending_total=0):
     }
     if orders_exist:
         context['order_products'] = order_products
-    if coupon:
-        context['discount_amount'] = discount_amount
     
 
     return render(request, 'cart/cart.html', context)

@@ -97,9 +97,12 @@
 
 			<!--=======  offcanvas wishlist content container  =======-->
 
+			
+			
 			<div class="offcanvas-cart-content-container">
 				<h3 class="cart-title">Wishlist</h3>
 
+				{% if request.user %}
 				<div class="cart-product-wrapper">
 					<div class="cart-product-container  ps-scroll">
 						{% for item in wishlist_items %}
@@ -140,7 +143,14 @@
 
 					<!--=======  End of cart buttons  =======-->
 				</div>
+				{% else %}
+				<p class="center-text text-danger m-4">Register or login to use a personalized wishlist.</p>
+				<a href="{% url 'login' %}" class="btn btn-dark align-middle">login</a>
+			
+				{% endif %}
 			</div>
+			
+			
 
 			<!--=======  End of offcanvas wishlist content container   =======-->
 		</div>
@@ -170,14 +180,18 @@
 				{% if not cart_items %}
 					<h2 class="text-center d-block">Your cart is empty</h2>	
 					<br style="display: none;">
-					
+					{% if request.user %}
 					<div class="text-center d-block">
 						<a href="{% url 'store' %}" class="btn btn-warning">Continue Shoping!</a>
 						<div class="cart-buttons m-5">
 						<a class="btn btn-dark align-middle" href="{% url 'cart' %}">view cart</a>
 						</div>
 					</div>
+					{% else %}
+					        <p class="center-text text-danger m-4">Register or login to use a personalized cart.</p>
+							<a href="{% url 'login' %}" class="btn btn-dark align-middle">login</a>
 					
+					{% endif %}
 				{% else %}
 
 				<div class="cart-product-wrapper">
@@ -221,11 +235,16 @@
 					<!--=======  End of subtotal calculation  =======-->
 
 					<!--=======  cart buttons  =======-->
-
+					{% if request.user %}
 					<div class="cart-buttons m-2">
 						<a href="{% url 'cart' %}">view cart</a>
 						
 					</div>
+					{% else %}
+						<p class="center-text text-danger m-4">Register or login to use a personalized cart.</p>
+						<a href="{% url 'login' %}" class="btn btn-dark align-middle">login</a>
+				
+					{% endif %}
 						
 					<!--=======  End of cart buttons  =======-->
 
