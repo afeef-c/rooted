@@ -119,16 +119,16 @@ DATABASES = {
 
 
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.postgresql',
-#        'NAME': 'rootedplants',
-#        'USER': 'afeefc123',
-#        'PASSWORD': 'ummerc123!',
-#        'HOST': 'rootedplants.cfs8kyc4kwl3.eu-north-1.rds.amazonaws.com',
-#        'PORT': '5432',
-#    }
-#}
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'rootedplants',
+        'USER': 'afeef',
+        'PASSWORD': 'ummerc123!',
+        'HOST': 'rootedplants.cfs8kyc4kwl3.eu-north-1.rds.amazonaws.com',
+        'PORT': '5432',
+    }
+}
 
 
 # Password validation
@@ -234,14 +234,14 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 
 
-AWS_ACCESS_KEY_ID = 'AKIAQ3EGTSLPSGMOV433'
-AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'rootedplants'
-AWS_S3_SIGNATURE_NAME = 's3v4',
-AWS_S3_REGION_NAME = 'ap-south-1'
-AWS_S3_FILE_OVERWRITE = False
-AWS_DEFAULT_ACL =  None
-AWS_S3_VERITY = True
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+#AWS_ACCESS_KEY_ID = 'AKIAQ3EGTSLPSGMOV433'
+#AWS_SECRET_ACCESS_KEY = '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'
+#AWS_STORAGE_BUCKET_NAME = 'rootedplants'
+#AWS_S3_SIGNATURE_NAME = 's3v4',
+#AWS_S3_REGION_NAME = 'ap-south-1'
+#AWS_S3_FILE_OVERWRITE = False
+#AWS_DEFAULT_ACL =  None
+#AWS_S3_VERITY = True
+#DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 

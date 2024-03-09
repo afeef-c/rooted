@@ -58,7 +58,7 @@ def admin_login(request):
         messages.danger(request,'error'+e)    
         return render(request, 'customadmin/admin_login.html', {'messages': 'An error occurred'})
 
-
+@login_required(login_url=admin_login)
 def admin_logout(request):
     logout(request)
     messages.success(request, 'The admin logout successfully')
@@ -66,6 +66,7 @@ def admin_logout(request):
 
 #==========================================================================================================
 
+@login_required(login_url=admin_login)
 def sales(request):
     
     orders = Order.objects.all()
@@ -91,7 +92,7 @@ def sales(request):
 
     return render(request, 'customadmin/reports/sales.html', context)
 
-
+@login_required(login_url=admin_login)
 def filter_orders(request):
     if request.method == 'POST':
         start_date = request.POST.get('start_date')
@@ -144,7 +145,7 @@ def filter_orders(request):
         return render(request, 'customadmin/reports/sales.html')
     
 
-
+@login_required(login_url=admin_login)
 def generate_pdf_from_template(template_name, context, filename):
     # Render the template with the given context
     html_content = render_to_string(template_name, context)
@@ -164,6 +165,8 @@ def generate_pdf_from_template(template_name, context, filename):
         return HttpResponse('PDF generation failed.')
 
     return response
+
+@login_required(login_url=admin_login)
 def generate_sales_pdf(request):
     
     if request.method == 'POST':
@@ -232,7 +235,7 @@ def generate_sales_pdf(request):
 
 
 
-
+@login_required(login_url=admin_login)
 def generate_excel_from_template(template_name, context, filename):
     # Render the template with the given context
     html_content = render_to_string(template_name, context)
@@ -258,6 +261,7 @@ def generate_excel_from_template(template_name, context, filename):
 
     return response
 
+@login_required(login_url=admin_login)
 def generate_sales_excel(request):
     if request.method == 'POST':
         start_date = request.POST.get('start_date')

@@ -84,7 +84,7 @@ Products List
                     
 
                     <td> {{product.stock }} </td>
-                    <td><a data-collapse="#mycard-collapse" class="btn btn-icon btn-info" href="{% url 'add_product_images' product.id %}"><i class="fas fa-plus"></i></a></td>
+                    <td><a href="{% url 'add_product_images' product.id %}"  class="btn btn-icon btn-info" ><i class="fas fa-plus"></i></a></td>
                     <td><a href="{% url 'product_update' product.id %}" class="btn btn-warning">Update</a></td>
                     <td><a href="{% url 'product_delete' product.id %}" class="btn btn-danger">Delete</a></td>
                 </tr>

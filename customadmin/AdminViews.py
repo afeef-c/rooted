@@ -20,14 +20,37 @@ from django.http import Http404
 from django.core.mail import send_mail
 from django.db.models import Sum
 from django.db.models import F
+from functools import wraps
+from django.core.exceptions import PermissionDenied
 
 
+
+
+
+def admin_required(view_func):
+    """Decorator to restrict access to admin users only."""
+    def _wrapped_view(request, *args, **kwargs):
+        if not request.user.is_staff:
+            raise PermissionDenied  # Or you can redirect to a different page or return an HttpResponseForbidden
+        return view_func(request, *args, **kwargs)
+    return _wrapped_view
+def admin_required(view_func):
+    """
+    Decorator for views that checks whether the user is an admin.
+    """
+    def _wrapped_view(request, *args, **kwargs):
+        if not request.user.is_staff:
+            return redirect('admin_login')
+        return view_func(request, *args, **kwargs)
+    return _wrapped_view
 
 #============================Home =======================================================================
 
 
 @login_required(login_url='admin_login')
+@admin_required
 def admin_home(request):
+
     if not request.user.is_admin:
         return redirect('admin_login')  # Redirect to the user dashboard if not a super admin
 
@@ -100,11 +123,13 @@ def admin_home(request):
 
 #============================Categories =======================================================================
 
+@method_decorator(admin_required, name='dispatch')
 class CategoriesListView(ListView):
     model = Category
     template_name = "customadmin/categories/category_list.html"
     context_object_name = "categories"
 
+@method_decorator(admin_required, name='dispatch')
 @method_decorator(login_required, name='dispatch')
 class CategoriesCreate(SuccessMessageMixin, CreateView):
     model = Category
@@ -112,38 +137,20 @@ class CategoriesCreate(SuccessMessageMixin, CreateView):
     fields = "__all__"
     template_name = "customadmin/categories/category_create.html"
 
-
+@method_decorator(admin_required, name='dispatch')
 class CategoriesUpdate(SuccessMessageMixin, UpdateView):
     model = Category
     success_message = " Category updated!"
     fields = "__all__"
     template_name = "customadmin/categories/category_update.html"
-
-#@method_decorator(login_required, name='dispatch')
-#class CategoryDeleteView(SuccessMessageMixin,DeleteView):
-#    model = Category
-#    template_name = 'customadmin/categories/category_delete.html'  
-#    success_message = " User {{category.cat_name}} deleted!"
-#    success_url = reverse_lazy('category_list') 
-
-#    def get_object(self, queryset=None):
-#        category_slug = self.kwargs.get('pk')
-#        return Category.objects.get(pk=category_slug)
-    
-
-#    def get_context_data(self, **kwargs):
-#        context = super().get_context_data(**kwargs)
-#        context['title'] = 'Delete User Account'
-#        return context
-    
-#    def get_success_message(self, cleaned_data):
-#        return f"Category deleteded successfully."
 #====================================Users=================================================================================
+@method_decorator(admin_required, name='dispatch')
 class UsersListView(ListView):
     model = Account
     template_name = "customadmin/user_list.html"
     context_object_name = "users"
 
+@method_decorator(admin_required, name='dispatch')
 @method_decorator(login_required, name='dispatch')
 class UserCreateView(SuccessMessageMixin, CreateView):
     model = Account
@@ -162,6 +169,7 @@ class UserCreateView(SuccessMessageMixin, CreateView):
         # You can access form.cleaned_data to retrieve form input values
         return f"User {cleaned_data['username']} created successfully."
 
+@method_decorator(admin_required, name='dispatch')
 @method_decorator(login_required, name='dispatch')    
 class UserUpdate(SuccessMessageMixin, UpdateView):
     model = Account
@@ -178,6 +186,7 @@ class UserUpdate(SuccessMessageMixin, UpdateView):
     def get_success_message(self, cleaned_data):
         return f"User {cleaned_data['username']} updated successfully."
 
+@method_decorator(admin_required, name='dispatch')
 @method_decorator(login_required, name='dispatch')
 class UserDeleteView(SuccessMessageMixin,DeleteView):
     model = Account
@@ -199,12 +208,13 @@ class UserDeleteView(SuccessMessageMixin,DeleteView):
         return f"User deleteded successfully."
 
 #============================================Products=======================================================================
+@method_decorator(admin_required, name='dispatch')
 class ProductListView(ListView):
     model = Product
     template_name = "customadmin/products/product_list.html"
     context_object_name = "products"
 
-@method_decorator(login_required, name='dispatch')
+@method_decorator(admin_required, name='dispatch')
 class ProductCreateView(SuccessMessageMixin, CreateView):
     model = Product
     template_name = "customadmin/products/add_product.html"
@@ -230,7 +240,7 @@ class ProductCreateView(SuccessMessageMixin, CreateView):
     def get_success_message(self, cleaned_data):
         return f"Product {cleaned_data['product_name']} created successfully."
 
-@method_decorator(login_required, name='dispatch')
+@method_decorator(admin_required, name='dispatch')
 class ProductUpdate(SuccessMessageMixin, UpdateView):
     model = Product
     template_name = "customadmin/products/product_update.html"
@@ -246,7 +256,7 @@ class ProductUpdate(SuccessMessageMixin, UpdateView):
     def get_success_message(self, cleaned_data):
         return f"Product: {cleaned_data['product_name']} updated successfully."
     
-@method_decorator(login_required, name='dispatch')
+@method_decorator(admin_required, name='dispatch')
 class ProductDeleteView(SuccessMessageMixin, DeleteView):
     model = Product
     template_name = 'customadmin/products/product_delete.html'
@@ -262,6 +272,7 @@ class ProductDeleteView(SuccessMessageMixin, DeleteView):
         context['title'] = 'Delete Product'
         return context
 #========================Product Images=============================================================================
+@method_decorator(admin_required, name='dispatch')
 class ProductImagesListView(ListView):
     template_name = "customadmin/products/product_images.html"
     context_object_name = "images"
@@ -298,6 +309,7 @@ class ProductImagesListView(ListView):
 
 #    def get_success_message(self, cleaned_data):
 #        return f"Product {cleaned_data['product_name']} created successfully."
+
 
 def add_product_images(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
