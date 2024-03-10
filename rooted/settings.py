@@ -123,7 +123,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'rootedplants',
-        'USER': 'afeefc123',
+        'USER': 'afeef',
         'PASSWORD': 'ummerc123!',
         'HOST': 'rootedplants.cfs8kyc4kwl3.eu-north-1.rds.amazonaws.com',
         'PORT': '5432',
@@ -234,8 +234,8 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 
 
-AWS_ACCESS_KEY_ID = 'AKIAQ3EGTSLPSGMOV433'
-AWS_SECRET_ACCESS_KEY = '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'
+AWS_ACCESS_KEY_ID = 'AKIAQ3EGTSLP2SRDKPTB'
+AWS_SECRET_ACCESS_KEY = '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'
 AWS_STORAGE_BUCKET_NAME = 'rootedplants'
 AWS_S3_SIGNATURE_NAME = 's3v4',
 AWS_S3_REGION_NAME = 'ap-south-1'
