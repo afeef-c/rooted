@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     #for ec2
-    'whitenoise.runserver_nostatic',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
@@ -61,25 +60,20 @@ INSTALLED_APPS = [
     
 
 ]
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',  # Corrected line
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    #custome middleware
-    # for restric logged user to login page
+    # Custom middleware
+    # for restrict logged user to login page
     'accounts.middleware.RedirectAuthenticatedUserMiddleware',
-    #restrict blocked user
+    # Restrict blocked user
     'rooted.middleware.BlockedUserMiddleware',
-    
-
     'corsheaders.middleware.CorsMiddleware', 
-    
 ]
 
 ROOT_URLCONF = 'rooted.urls'
@@ -212,13 +206,6 @@ EMAIL_HOST_PASSWORD = 'kgaa gfwy rfzj nhtx'
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 
-EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST='smtp.gmail.com'
-EMAIL_PORT=587
-EMAIL_USE_TLS=True
-EMAIL_HOST_USER='afeefc123@gmail.com'
-EMAIL_HOST_PASSWORD='kgaa gfwy rfzj nhtx'
-EMAIL_USE_SSL=False
 
 
 #PAYPAL_RECEIVER_EMAIL = 'rootedstores@gmail.com'

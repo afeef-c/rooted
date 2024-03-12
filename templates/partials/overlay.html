@@ -102,7 +102,7 @@
 			<div class="offcanvas-cart-content-container">
 				<h3 class="cart-title">Wishlist</h3>
 
-				{% if request.user %}
+				{% if request.user.is_authenticated %}
 				<div class="cart-product-wrapper">
 					<div class="cart-product-container  ps-scroll">
 						{% for item in wishlist_items %}
@@ -177,88 +177,90 @@
 
 			<div class="offcanvas-cart-content-container">
 				<h3 class="cart-title">Cart</h3>
-				{% if not cart_items %}
-					<h2 class="text-center d-block">Your cart is empty</h2>	
-					<br style="display: none;">
-					{% if request.user %}
-					<div class="text-center d-block">
-						<a href="{% url 'store' %}" class="btn btn-warning">Continue Shoping!</a>
-						<div class="cart-buttons m-5">
-						<a class="btn btn-dark align-middle" href="{% url 'cart' %}">view cart</a>
+				{% if request.user.is_authenticated %}
+					{% if not cart_items %}
+						<h2 class="text-center d-block">Your cart is empty</h2>	
+						<br style="display: none;">
+						
+						<div class="text-center d-block">
+							<a href="{% url 'store' %}" class="btn btn-warning">Continue Shoping!</a>
+							<div class="cart-buttons m-5">
+							<a class="btn btn-dark align-middle" href="{% url 'cart' %}">view cart</a>
+							</div>
 						</div>
-					</div>
+						
 					{% else %}
-					        <p class="center-text text-danger m-4">Register or login to use a personalized cart.</p>
+
+					<div class="cart-product-wrapper">
+						<div class="cart-product-container  ps-scroll">
+							<!--=======  single cart product  =======-->
+							
+							{% for item in cart_items %}
+							<div class="single-cart-product">
+								<span class="cart-close-icon">
+									<a href="#"><i class="ti-close"></i></a>
+								</span>
+								<div class="image">
+									<a href="{{item.product.get_url}}">
+										<img src="{{ item.product.images.url }}" class="img-fluid" alt="">
+									</a>
+								</div>
+								<div class="content">
+									<h5><a href="{{item.product.get_url}}"> {{ item.product.product_name }}  </a></h5>
+									<p>
+										{% if item.product.get_offer_percent %}
+										<span class="main-price discounted">₹ {{item.product.price}} </span>
+										<span class="discounted-price">₹ {{item.product.get_offer_price|floatformat:"2" }} </span>
+										{% else %}
+										<span class="discounted-price">₹ {{item.product.price}} </span>
+										{% endif %}
+									</p>
+
+								</div>
+							</div>
+							{% endfor %}
+							<!--=======  End of single cart product  =======-->
+						</div>
+
+						<!--=======  subtotal calculation  =======-->
+
+						<p class="cart-subtotal">
+							<span class="subtotal-title">Subtotal:</span>
+							<span class="subtotal-amount">₹  {{total}} </span>
+						</p>
+
+						<!--=======  End of subtotal calculation  =======-->
+
+						<!--=======  cart buttons  =======-->
+						{% if request.user %}
+						<div class="cart-buttons m-2">
+							<a href="{% url 'cart' %}">view cart</a>
+							
+						</div>
+						{% else %}
+							<p class="center-text text-danger m-4">Register or login to use a personalized cart.</p>
 							<a href="{% url 'login' %}" class="btn btn-dark align-middle">login</a>
 					
+						{% endif %}
+							
+						<!--=======  End of cart buttons  =======-->
+
+						<!--=======  free shipping text  =======-->
+
+						<p class="free-shipping-text">
+							Free Shipping on All Orders Over ₹1000!
+						</p>
+
+						<!--=======  End of free shipping text  =======-->
+					</div>
+					<div class="cart-calculation-button text-center m-2">
+						<button  class="lezada-button lezada-button--medium"><a href="{% url 'placeorder' %}">place order</a></button>
+					</div>
 					{% endif %}
 				{% else %}
-
-				<div class="cart-product-wrapper">
-					<div class="cart-product-container  ps-scroll">
-						<!--=======  single cart product  =======-->
-						
-						{% for item in cart_items %}
-						<div class="single-cart-product">
-							<span class="cart-close-icon">
-								<a href="#"><i class="ti-close"></i></a>
-							</span>
-							<div class="image">
-								<a href="{{item.product.get_url}}">
-									<img src="{{ item.product.images.url }}" class="img-fluid" alt="">
-								</a>
-							</div>
-							<div class="content">
-								<h5><a href="{{item.product.get_url}}"> {{ item.product.product_name }}  </a></h5>
-								<p>
-									{% if item.product.get_offer_percent %}
-									<span class="main-price discounted">₹ {{item.product.price}} </span>
-									<span class="discounted-price">₹ {{item.product.get_offer_price|floatformat:"2" }} </span>
-									{% else %}
-									<span class="discounted-price">₹ {{item.product.price}} </span>
-									{% endif %}
-								</p>
-
-							</div>
-						</div>
-						{% endfor %}
-						<!--=======  End of single cart product  =======-->
-					</div>
-
-					<!--=======  subtotal calculation  =======-->
-
-					<p class="cart-subtotal">
-						<span class="subtotal-title">Subtotal:</span>
-						<span class="subtotal-amount">₹  {{total}} </span>
-					</p>
-
-					<!--=======  End of subtotal calculation  =======-->
-
-					<!--=======  cart buttons  =======-->
-					{% if request.user %}
-					<div class="cart-buttons m-2">
-						<a href="{% url 'cart' %}">view cart</a>
-						
-					</div>
-					{% else %}
 						<p class="center-text text-danger m-4">Register or login to use a personalized cart.</p>
 						<a href="{% url 'login' %}" class="btn btn-dark align-middle">login</a>
 				
-					{% endif %}
-						
-					<!--=======  End of cart buttons  =======-->
-
-					<!--=======  free shipping text  =======-->
-
-					<p class="free-shipping-text">
-						Free Shipping on All Orders Over ₹1000!
-					</p>
-
-					<!--=======  End of free shipping text  =======-->
-				</div>
-				<div class="cart-calculation-button text-center m-2">
-					<button  class="lezada-button lezada-button--medium"><a href="{% url 'placeorder' %}">place order</a></button>
-				</div>
 				{% endif %}
 			</div>
 			
