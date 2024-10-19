@@ -16,7 +16,7 @@ from django.db.models.signals import pre_save
 class Product(models.Model):
     product_name    = models.CharField(max_length=225,unique=True)
     slug            = models.SlugField(max_length=225,unique=True, editable=False)
-    description     = models.TextField(max_length=255,blank=True)
+    description     = models.TextField(max_length=500,blank=True)
     price           = models.IntegerField()
     images          = models.ImageField(upload_to='photos/product')
     stock           = models.IntegerField()
